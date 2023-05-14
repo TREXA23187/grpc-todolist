@@ -9,6 +9,6 @@ func migration() {
 		)
 
 	if err != nil {
-		fmt.Println("migration err:", err)
+		fmt.Println("migration costum_error:", err)
 	}
 }
