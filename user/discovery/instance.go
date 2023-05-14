@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"google.golang.org/grpc/resolver"
 	"strings"
 )
 
@@ -46,6 +47,12 @@ func SplitPath(path string) (Server, error) {
 	return server, nil
 }
 
-func Exist() {
+func Exist(list []resolver.Address, addr resolver.Address) bool {
+	for i := range list {
+		if list[i].Addr == addr.Addr {
+			return true
+		}
+	}
 
+	return false
 }
