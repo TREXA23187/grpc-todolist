@@ -1,7 +1,7 @@
 package handler
 
 import (
-	"github.com/gin-gonic/gin"
+	"context"
 	"grpc-todolist/user/internal/repository"
 	"grpc-todolist/user/internal/service"
 	"grpc-todolist/user/pkg/costum_error"
@@ -14,7 +14,7 @@ func NewUserService() *UserService {
 	return &UserService{}
 }
 
-func (*UserService) UserLogin(ctx *gin.Context, req *service.UserRequest) (resp *service.UserDetailResponse, err error) {
+func (*UserService) UserLogin(ctx context.Context, req *service.UserRequest) (resp *service.UserDetailResponse, err error) {
 	var user repository.User
 	resp = new(service.UserDetailResponse)
 	resp.Code = costum_error.Success
@@ -29,7 +29,7 @@ func (*UserService) UserLogin(ctx *gin.Context, req *service.UserRequest) (resp 
 	return resp, nil
 }
 
-func (*UserService) UserRegister(ctx *gin.Context, req *service.UserRequest) (resp *service.UserDetailResponse, err error) {
+func (*UserService) UserRegister(ctx context.Context, req *service.UserRequest) (resp *service.UserDetailResponse, err error) {
 	var user repository.User
 	resp = new(service.UserDetailResponse)
 	resp.Code = costum_error.Success
@@ -41,5 +41,10 @@ func (*UserService) UserRegister(ctx *gin.Context, req *service.UserRequest) (re
 	}
 
 	resp.UserDetail = repository.BuildUser(user)
+	return resp, nil
+}
+
+func (*UserService) UserLogout(ctx context.Context, req *service.UserRequest) (resp *service.UserDetailResponse, err error) {
+	resp = new(service.UserDetailResponse)
 	return resp, nil
 }
